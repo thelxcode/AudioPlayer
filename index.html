@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Playlist Player</title>
+    <title>YouTube Playlist Audio Player</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,17 +13,24 @@
             justify-content: center;
             height: 100vh;
             background-color: #f0f0f0;
+            text-align: center;
         }
         #player {
             width: 100%;
             max-width: 800px;
             margin: 20px auto;
+            display: none; /* Hide the video player */
+        }
+        #message {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
 
-    <h1>YouTube Playlist Player</h1>
+    <h1>YouTube Playlist Audio Player</h1>
+    <div id="message">Playing audio from the playlist...</div>
     <div id="player"></div>
 
     <script>
@@ -43,7 +50,10 @@
                     'listType': 'playlist',
                     'list': 'PLLlb2C74bLzdBSbeaFoGTUwNgPS_YAGy_', // Your playlist ID
                     'autoplay': 1,
-                    'controls': 1
+                    'controls': 1,
+                    'showinfo': 0,
+                    'modestbranding': 1,
+                    'rel': 0
                 },
                 events: {
                     'onReady': onPlayerReady
