@@ -1,34 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Music Player</title>
-  <style>
-    body {
-      background-color: #f0f0f0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .music-player {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      background-color: #ffffff;
-      padding: 20px;
-      border-radius: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Playlist Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #player {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+    </style>
 </head>
 <body>
 
-<div class="music-player">
-  <audio controls>
-    <source src="https://thelxcode.github.io/AudioPlayer/music/Hare_Hare__Hum_to_dil_se_hare__-_Lofi_Song_%5BSlowed___Reverb%5D___ShariqueKhan___Nic_Lofi(256k).mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-</div>
+    <h1>YouTube Playlist Player</h1>
+    <div id="player"></div>
+
+    <script>
+        // Load the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // Create a YouTube player after the API code downloads.
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '390',
+                width: '640',
+                playerVars: {
+                    'listType': 'playlist',
+                    'list': 'PLLlb2C74bLzdBSbeaFoGTUwNgPS_YAGy_', // Your playlist ID
+                    'autoplay': 1,
+                    'controls': 1
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+    </script>
 
 </body>
 </html>
