@@ -1,156 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Playlist Audio Player</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            text-align: center;
-        }
-        #player {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-            display: block; /* Show the video player (controls only) */
-        }
-        #message {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-        #song-list {
-            list-style: none;
-            padding: 0;
-            max-height: 150px; /* Limit height for scrolling */
-            overflow-y: auto; /* Enable vertical scrolling */
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-        #song-list li {
-            cursor: pointer;
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #e0e0e0; /* Light gray for list items */
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        #song-list li:hover {
-            background-color: #d0d0d0; /* Slightly darker on hover */
-        }
-        .controls {
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player</title>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .music-player {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>YouTube Playlist Audio Player</h1>
-    <div id="message">Playing audio from the playlist...</div>
-    <div id="player"></div>
-    
-    <ul id="song-list"></ul>
-
-    <div class="controls">
-        <button id="prev-btn">Previous</button>
-        <button id="play-btn">Play</button>
-        <button id="next-btn">Next</button>
-    </div>
-
-    <script>
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        var player;
-        var playlist = [];
-        var currentIndex = 0;
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '390',
-                width: '640',
-                playerVars: {
-                    'listType': 'playlist',
-                    'list': 'PLLlb2C74bLzdBSbeaFoGTUwNgPS_YAGy_', // Your playlist ID
-                    'autoplay': 0,
-                    'controls': 1,
-                    'showinfo': 0,
-                    'modestbranding': 1,
-                    'rel': 0,
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            event.target.playVideo();
-            loadPlaylist();
-        }
-
-        function loadPlaylist() {
-            // Example songs for the playlist; replace with the actual songs using YouTube Data API if needed.
-            playlist = [
-                { title: "Song 1", videoId: "gn0hMqfZnrA" },
-                { title: "Song 2", videoId: "VIDEO_ID_2" },
-                { title: "Song 3", videoId: "VIDEO_ID_3" },
-                // Add more songs as needed
-            ];
-            displaySongs();
-        }
-
-        function displaySongs() {
-            const songList = document.getElementById('song-list');
-            songList.innerHTML = ''; // Clear the existing list
-            playlist.forEach((song, index) => {
-                const li = document.createElement('li');
-                li.textContent = song.title;
-                li.onclick = () => playSong(index);
-                songList.appendChild(li);
-            });
-        }
-
-        function playSong(index) {
-            currentIndex = index;
-            player.loadVideoById(playlist[index].videoId);
-            player.playVideo();
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.ENDED) {
-                nextSong();
-            }
-        }
-
-        document.getElementById('prev-btn').onclick = function() {
-            previousSong();
-        };
-        
-        document.getElementById('next-btn').onclick = function() {
-            nextSong();
-        };
-
-        function previousSong() {
-            currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
-            playSong(currentIndex);
-        }
-
-        function nextSong() {
-            currentIndex = (currentIndex + 1) % playlist.length;
-            playSong(currentIndex);
-        }
-    </script>
+<div class="music-player">
+  <audio controls>
+    <source src="https://thelxcode.github.io/AudioPlayer/music/Hare_Hare__Hum_to_dil_se_hare__-_Lofi_Song_%5BSlowed___Reverb%5D___ShariqueKhan___Nic_Lofi(256k).mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</div>
 
 </body>
 </html>
